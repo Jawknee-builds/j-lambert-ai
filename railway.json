@@ -4,7 +4,7 @@
     "builder": "NIXPACKS"
   },
   "deploy": {
-    "startCommand": "cd voice_agent_files && npm start",
+    "startCommand": "node server.js",
     "restartPolicyType": "ON_FAILURE",
     "numReplicas": 1
   }

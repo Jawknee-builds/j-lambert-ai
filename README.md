@@ -1,85 +1,78 @@
-# J. Lambert Foundry — Lead Extraction Agent
+# LeadPilot AI MVP
 
-An autonomous B2B lead generation agent that discovers high-quality prospects using AI (Groq/Llama 3), verifies email deliverability, and maintains a local deduplicated database.
+AI lead concierge MVP for AU/NZ real estate teams.
 
-## 🚀 Features
-- **Autonomous Discovery:** Automatically rotates through industries and locations to find target companies.
-- **Executive Enrichment:** Identifies key decision-makers (CEO, CTO, etc.) at discovered companies.
-- **Email Intelligence:** Deduces corporate email formats and verifies deliverability via MX record lookups to prevent bounces.
-- **Smart Deduplication:** Uses a local SQLite database to ensure you never extract or contact the same lead twice.
-- **CSV Export:** Generates clean, ready-to-use CSV files for outreach.
+## What It Does
 
-## 🛠️ Tech Stack
-- **AI Brain:** [Groq](https://groq.com/) (Llama 3.3 70B)
-- **Database:** SQLite
-- **Language:** Python 3.10+
-- **Key Libraries:** `openai`, `rich`, `email-validator`
+- Answers inbound call scenarios.
+- Calls new form enquiries within 60 seconds.
+- Sends email/WhatsApp fallback when the lead misses the call.
+- Scores Hot/Warm/Cold intent.
+- Creates an agent-ready summary with budget, timeline, finance, interest, and next step.
 
-## 📦 Installation
+## Run Locally
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/yourusername/lead_agent.git
-   cd lead_agent
-   ```
-
-2. **Install dependencies:**
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-3. **Set your API Key:**
-   Get a free API key from [Groq Console](https://console.groq.com/) and set it as an environment variable:
-   ```powershell
-   # Windows (PowerShell)
-   $env:GROQ_API_KEY="your_key_here"
-
-   # Linux/macOS
-   export GROQ_API_KEY="your_key_here"
-   ```
-
-## ⚙️ Configuration
-
-Edit `config.json` to customize your targeting:
-```json
-{
-  "target_industries": ["Fintech", "Legal Tech"],
-  "target_locations": ["NYC", "London"],
-  "target_titles": ["CEO", "CTO"],
-  "daily_quota": 200,
-  "groq_model": "llama-3.3-70b-versatile"
-}
-```
-
-## 🚀 Usage
-
-**Run the agent:**
 ```bash
-python main.py
+npm start
 ```
 
-**Run with a specific quota:**
+Then open:
+
+```text
+http://127.0.0.1:4173/app.html
+```
+
+## 🚀 Deployment (Railway)
+
+1. **Install CLI:** `npm i -g @railway/cli`
+2. **Login:** `railway login`
+3. **Up:** `railway up`
+4. **Environment Variables:** Set `GEMINI_API_KEY` in the Railway dashboard.
+5. **Persistence:** Add a **Volume** mounted at `/app/data` (if deploying from root) or `/voice_agent_files/data` to persist your leads.
+
+## Free AI Brain Mode
+
+The voice UI can use Gemini's free-tier API for the conversation brain.
+
 ```bash
-python main.py --quota 50
+GEMINI_API_KEY=your_google_ai_studio_key npm start
 ```
 
-**Export today's leads to CSV without running a new search:**
+By default it uses:
+
+```text
+gemini-2.5-flash-lite
+```
+
+You can change it:
+
 ```bash
-python main.py --export-only
+GEMINI_MODEL=gemini-2.5-flash-lite GEMINI_API_KEY=your_key npm start
 ```
 
-**Dry run (test without API calls):**
-```bash
-python main.py --dry-run
-```
+Without `GEMINI_API_KEY`, the app falls back to the local rule-based voice brain.
 
-## 📂 Project Structure
-- `main.py`: The core orchestrator and CLI entry point.
-- `search.py`: Handles API interactions with Groq.
-- `db.py`: SQLite database layer and deduplication logic.
-- `utils.py`: Email verification and formatting utilities.
-- `exports/`: Directory where daily CSV files are saved.
-- `leads.db`: Local SQLite database (git-ignored).
+## Key Files
 
-## 📄 License
-MIT License - see [LICENSE](LICENSE) for details.
+- `index.html` - sales/demo landing page.
+- `app.html` - working MVP dashboard.
+- `server.js` - no-dependency Node API and static server.
+- `app.js` - dashboard behavior and API calls.
+- `data/leads.json` - local lead storage.
+- `outreach.md` - WhatsApp/email outreach scripts.
+
+## API Routes
+
+- `GET /api/leads`
+- `GET /api/metrics`
+- `POST /api/leads`
+- `POST /api/inbound-call`
+
+## Next Integrations
+
+- Fastest production voice: Retell or Vapi with a real phone number, webhooks, and transcripts.
+- Most custom production voice: OpenAI Realtime with SIP/WebRTC plus your own call controls.
+- Voice plumbing: Twilio or Telnyx for phone numbers if the voice platform does not handle the number directly.
+- Email: SendGrid, Resend, Postmark, or Gmail API.
+- WhatsApp: Meta WhatsApp Cloud API or Twilio WhatsApp.
+- CRM: HubSpot, Airtable, Google Sheets, Agentbox/Rex/VaultRE via Zapier/Make where direct APIs are not practical.
