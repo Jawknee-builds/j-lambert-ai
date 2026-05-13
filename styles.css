@@ -115,7 +115,7 @@ nav {
 }
 
 .logo img {
-  height: 40px;
+  height: 32px;
   display: block;
 }
 
@@ -178,10 +178,6 @@ nav {
   transition: color 0.3s;
 }
 
-.mobile-menu a:hover {
-  color: var(--teal);
-}
-
 /* Hero Section */
 .hero {
   padding: 120px 0 80px;
@@ -222,24 +218,6 @@ nav {
   padding: 40px;
   border-radius: 24px;
   transition: border-color 0.3s;
-}
-
-.feature-card:hover {
-  border-color: var(--teal);
-}
-
-.step-num {
-  font-size: 0.85rem;
-  font-weight: 800;
-  color: var(--teal);
-  background: var(--teal-glow);
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  margin-bottom: 20px;
 }
 
 /* Visuals */
@@ -292,18 +270,6 @@ nav {
   border-left: 4px solid var(--teal);
 }
 
-.status-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  display: inline-block;
-  margin-right: 6px;
-}
-
-.status-dot.hot { background: var(--hot); }
-.status-dot.warm { background: var(--warm); }
-.status-dot.cold { background: var(--cold); }
-
 /* Dashboard Preview */
 .db-preview {
   background: var(--bg);
@@ -313,29 +279,9 @@ nav {
   font-size: 0.75rem;
 }
 
-.db-header {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
-
-.db-stat {
-  text-align: left;
-}
-
-.db-stat h5 { color: var(--muted); margin-bottom: 4px; }
-.db-stat span { font-size: 1.25rem; font-weight: 800; }
-
-.db-row {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--line);
-}
-
 /* Responsive */
 @media (max-width: 992px) {
-  .hero h1 { font-size: 2.5rem; }
+  .hero h1 { font-size: 3rem; }
   .grid-2 { grid-template-columns: 1fr; gap: 40px; }
   .hero { padding: 80px 0 40px; }
 }
@@ -343,9 +289,12 @@ nav {
 @media (max-width: 768px) {
   .nav-links { display: none; }
   .hamburger { display: flex; }
+  .hero h1 { font-size: 2.5rem; }
 }
 
 @media (max-width: 600px) {
-  .hero h1 { font-size: 2rem; }
+  .hero h1 { font-size: 2.25rem; }
   .btn { width: 100%; margin-bottom: 12px; }
+  .section-padding { padding: 60px 0; }
+  .feature-card { padding: 24px; }
 }
