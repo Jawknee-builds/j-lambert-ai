@@ -25,16 +25,16 @@
             <span>Dashboard</span>
           </a>
           <a href="#capture">
-            <span>AI Concierge</span>
+            <span>Live Agent</span>
           </a>
           <a href="#summaries">
-            <span>Lead Matrix</span>
+            <span>Verified Leads</span>
           </a>
           <a href="#knowledge">
-            <span>Knowledge</span>
+            <span>Agent Training</span>
           </a>
           <a href="#schedule">
-            <span>Schedule</span>
+            <span>Viewings</span>
           </a>
         </nav>
       </aside>
@@ -42,14 +42,14 @@
       <main>
         <header class="header">
           <div class="header-left">
-            <p>PropTech Intelligence</p>
-            <h2>Executive Dashboard</h2>
+            <p>Sales Intelligence</p>
+            <h2>Operations Center</h2>
           </div>
           <div class="header-right">
             <div style="display: flex; gap: 12px; align-items: center; background: var(--panel); padding: 8px 16px; border-radius: 12px; border: 1px solid var(--line); color: #fff;">
-              <span style="font-size: 0.8rem; color: var(--muted); font-weight: 700;">Portfolio:</span>
+              <span style="font-size: 0.8rem; color: var(--muted); font-weight: 700;">Project:</span>
               <select style="background: none; border: none; font-weight: 800; color: #fff; outline: none; cursor: pointer; font-size: 0.85rem;">
-                <option style="color: #000;">All Projects</option>
+                <option style="color: #000;">All Properties</option>
                 <option style="color: #000;">Parramatta Central</option>
                 <option style="color: #000;">Southbank Residences</option>
               </select>
@@ -59,7 +59,7 @@
 
         <section class="dashboard-grid">
           <div class="metric-card">
-            <label>Total Pipeline</label>
+            <label>Total Enquiries</label>
             <div class="value" id="metricTotal">0</div>
           </div>
           <div class="metric-card">
@@ -67,24 +67,24 @@
             <div class="value" id="metricHot" style="color: var(--red);">0</div>
           </div>
           <div class="metric-card">
-            <label>AI Conversations</label>
+            <label>AI Calls Handled</label>
             <div class="value" id="metricAnswered">0</div>
           </div>
           <div class="metric-card">
-            <label>Hours Reclaimed</label>
+            <label>Hours Saved</label>
             <div class="value" id="metricSaved">0</div>
           </div>
         </section>
 
-        <!-- AI COMMAND CENTER (PULLED UP) -->
+        <!-- AI COMMAND CENTER -->
         <div style="display: grid; grid-template-columns: minmax(0,1fr) minmax(0,360px); gap: 24px; margin-bottom: 48px;">
           <section class="panel" id="capture" style="border: 2px solid var(--teal-glow); position: relative; overflow: hidden;">
-            <div style="position: absolute; top: 0; right: 0; padding: 12px 20px; background: var(--teal); color: #000; font-size: 0.6rem; font-weight: 800; text-transform: uppercase; border-bottom-left-radius: 12px; z-index: 10;">Live AI Ready</div>
+            <div style="position: absolute; top: 0; right: 0; padding: 12px 20px; background: var(--teal); color: #000; font-size: 0.6rem; font-weight: 800; text-transform: uppercase; border-bottom-left-radius: 12px; z-index: 10;">Agent Online</div>
             
             <div class="panel-head">
               <div>
-                <p>Real-time Capture</p>
-                <h2>AI Concierge Session</h2>
+                <p>Live Interaction</p>
+                <h2>Voice Concierge</h2>
               </div>
             </div>
             
@@ -93,7 +93,7 @@
                 <div class="call-screen">
                   <div style="z-index:2; display:flex; flex-direction:column; align-items:center; gap:4px; margin-bottom: 12px;">
                     <img src="assets/logo_square.png" alt="JL" style="width:40px;height:40px;border-radius:8px;box-shadow: 0 0 20px rgba(0,168,132,0.4);">
-                    <span style="font-size:0.55rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--muted);font-weight:700; margin-top:8px;">J. Lambert Concierge</span>
+                    <span style="font-size:0.55rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--muted);font-weight:700; margin-top:8px;">J. Lambert Agent</span>
                   </div>
                   <div class="waveform" id="waveform" style="height: 40px; margin-bottom: 20px;">
                     <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
@@ -105,25 +105,25 @@
 
               <div style="flex:1; min-width:0; display: flex; flex-direction: column; gap: 20px;">
                 <div>
-                  <h3 style="margin-bottom:8px; font-size:1rem; color: #fff;">Agent Command</h3>
+                  <h3 style="margin-bottom:8px; font-size:1rem; color: #fff;">Deploy AI Agent</h3>
                   <p style="color: var(--muted); margin-bottom: 16px; font-weight: 500; font-size: 0.8rem; line-height: 1.5;">
-                    Activate the voice agent to handle inbound enquiries. Data is synced instantly.
+                    The AI calls every lead in 60 seconds. Start a demo session to see how it qualifies buyers.
                   </p>
                   <div style="display: flex; gap: 12px;">
-                    <button id="startVoice" class="accent" style="flex:1; height: 48px; font-size: 0.85rem;">📞 Start Session</button>
+                    <button id="startVoice" class="accent" style="flex:1; height: 48px; font-size: 0.85rem;">📞 Start Live Session</button>
                     <button id="stopVoice" class="secondary" style="display: none; border-color: var(--red); color: var(--red); flex:1; height: 48px; font-size: 0.85rem;">🛑 End Session</button>
                   </div>
                 </div>
                 
                 <div id="aiAnalyzing" style="display: none; align-items: center; gap: 12px; padding: 12px; background: var(--accent-light); border-radius: 12px; border: 1px solid rgba(0, 168, 132, 0.1);">
                   <div class="spinner" style="width:14px; height:14px; border:2px solid var(--accent); border-top-color:transparent; border-radius:50%; animation: spin 0.8s linear infinite;"></div>
-                  <span id="aiAnalyzingText" style="font-size:0.75rem; font-weight:800; color:var(--accent);">AI INDEXING LEAD...</span>
+                  <span id="aiAnalyzingText" style="font-size:0.75rem; font-weight:800; color:var(--accent);">EXTRACTING LEAD DETAILS...</span>
                 </div>
                 
                 <div style="background: #0f172a; border-radius: 16px; padding: 16px; border: 1px solid rgba(255,255,255,0.05); flex: 1; display: flex; flex-direction: column;">
-                  <h4 style="font-size:0.6rem; text-transform:uppercase; letter-spacing:0.15em; color: rgba(255,255,255,0.3); margin-bottom:12px; font-weight: 900;">Intelligence Logs</h4>
+                  <h4 style="font-size:0.6rem; text-transform:uppercase; letter-spacing:0.15em; color: rgba(255,255,255,0.3); margin-bottom:12px; font-weight: 900;">AI Activity Log</h4>
                   <div id="aiBrainLogs" style="height: 160px; overflow-y: auto; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: rgba(255,255,255,0.6); display: flex; flex-direction: column; gap: 6px; line-height: 1.4;">
-                    <div style="color: rgba(255,255,255,0.2)">[System] Ready for input...</div>
+                    <div style="color: rgba(255,255,255,0.2)">[System] Ready for inbound leads...</div>
                   </div>
                 </div>
               </div>
@@ -133,26 +133,26 @@
           <section class="panel" id="knowledge">
             <div class="panel-head">
               <div>
-                <p>Base Training</p>
-                <h2>Agent Context</h2>
+                <p>Knowledge Base</p>
+                <h2>Agent Training</h2>
               </div>
             </div>
-            <textarea id="knowledgeInput" placeholder="Property highlights, pricing, scripts..." style="width: 100%; height: 120px; margin-bottom: 12px; font-size: 0.8rem;"></textarea>
+            <textarea id="knowledgeInput" placeholder="Paste property descriptions, FAQs, or pricing guides here..." style="width: 100%; height: 120px; margin-bottom: 12px; font-size: 0.8rem;"></textarea>
             <div style="display: grid; grid-template-columns: 1fr; gap: 10px; margin-bottom: 20px;">
-              <button id="saveKnowledge" class="accent" style="font-size: 0.75rem; height: 44px;">💾 Sync Brain</button>
-              <button onclick="document.getElementById('pdfUpload').click()" class="secondary" style="font-size: 0.7rem; height: 40px;">📁 Upload PDF</button>
+              <button id="saveKnowledge" class="accent" style="font-size: 0.75rem; height: 44px;">💾 Sync AI Brain</button>
+              <button onclick="document.getElementById('pdfUpload').click()" class="secondary" style="font-size: 0.7rem; height: 40px;">📁 Upload Property PDF</button>
               <input type="file" id="pdfUpload" accept=".pdf" style="display: none;">
             </div>
             <div id="fileList" style="display: grid; gap: 8px; font-size: 0.75rem;"></div>
           </section>
         </div>
 
-        <!-- ANALYTICS (MOVED DOWN) -->
+        <!-- ANALYTICS -->
         <section class="panel" id="analytics" style="margin-bottom: 48px;">
           <div class="panel-head">
             <div>
-              <p>Performance ROI</p>
-              <h2>Conversion Efficiency</h2>
+              <p>Performance</p>
+              <h2>Conversion Health</h2>
             </div>
           </div>
           <div style="display: grid; grid-template-columns: 1fr 350px; gap: 40px; align-items: start;">
@@ -163,9 +163,9 @@
               <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
                 <thead>
                   <tr style="text-align: left; border-bottom: 1px solid var(--line);">
-                    <th style="padding: 12px 8px; font-weight: 800; color: var(--muted); font-size: 0.6rem; text-transform: uppercase;">Date</th>
-                    <th style="padding: 12px 8px; font-weight: 800; color: var(--muted); font-size: 0.6rem; text-transform: uppercase;">Lead</th>
-                    <th style="padding: 12px 8px; font-weight: 800; color: var(--muted); font-size: 0.6rem; text-transform: uppercase; text-align: right;">Saved</th>
+                    <th style="padding: 12px 8px; font-weight: 800; color: var(--muted); font-size: 0.6rem; text-transform: uppercase;">Time</th>
+                    <th style="padding: 12px 8px; font-weight: 800; color: var(--muted); font-size: 0.6rem; text-transform: uppercase;">Lead Name</th>
+                    <th style="padding: 12px 8px; font-weight: 800; color: var(--muted); font-size: 0.6rem; text-align: right;">Status</th>
                   </tr>
                 </thead>
                 <tbody id="analyticsTableBody"></tbody>
@@ -177,11 +177,11 @@
         <section class="panel" id="summaries">
           <div class="panel-head">
             <div>
-              <p>Pipeline Intelligence</p>
-              <h2>Lead Profile Matrix</h2>
+              <p>Pipeline</p>
+              <h2>Verified Leads</h2>
             </div>
             <div style="display: flex; gap: 12px;">
-              <button id="exportLeads" class="secondary">📥 Export CSV</button>
+              <button id="exportLeads" class="secondary">📥 Download CSV</button>
               <button id="refreshLeads" class="accent" style="padding: 10px 20px;">↻ Sync Data</button>
             </div>
           </div>
@@ -189,12 +189,12 @@
             <table>
               <thead>
                 <tr>
-                  <th>Lead Identity</th>
-                  <th>Contact Info</th>
-                  <th>Lead Status</th>
-                  <th>Interest / Type</th>
-                  <th>Financials</th>
-                  <th>Last Action</th>
+                  <th>Identity</th>
+                  <th>Contact</th>
+                  <th>Score</th>
+                  <th>Interest</th>
+                  <th>Budget</th>
+                  <th>Next Step</th>
                 </tr>
               </thead>
               <tbody id="leadTableBody"></tbody>
@@ -202,12 +202,11 @@
           </div>
         </section>
 
-        <!-- MEETINGS SCHEDULING SECTION -->
         <section class="panel" id="schedule">
           <div class="panel-head">
             <div>
               <p>Bookings</p>
-              <h2>Schedule a Viewing</h2>
+              <h2>Schedule Viewings</h2>
             </div>
           </div>
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
