@@ -1,0 +1,16 @@
+{
+  "name": "leadpilot-ai-mvp",
+  "version": "0.1.0",
+  "private": true,
+  "description": "AI lead concierge MVP for AU/NZ real estate teams.",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "busboy": "^1.6.0",
+    "pdf-parse": "^2.4.5"
+  }
+}

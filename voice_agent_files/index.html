@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>J. Lambert | Elite Real Estate AI Concierge</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                <div class="logo"><img src="assets/logo_text.png" alt="J. LAMBERT"></div>
+                <div class="nav-links" style="display: flex; gap: 24px; align-items: center;">
+                    <a href="app.html" class="btn btn-primary">Open Demo Dashboard</a>
+                </div>
+                <button class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="app.html">Open Dashboard</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="#setup">Setup</a>
+    </div>
+
+    <header class="hero">
+        <div class="container">
+            <span class="eyebrow">The 60-Second Standard</span>
+            <h1 class="gradient-text">New lead just came in.<br>They're called back in 60 seconds.</h1>
+            <p class="sub">J. Lambert AI calls every new enquiry within 60 seconds, qualifies them on the call, and sends your agent a WhatsApp summary — scored HOT, WARM, or COLD.</p>
+            <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+                <a href="app.html" class="btn btn-primary">Open Live Demo</a>
+                <a href="#how-it-works" class="btn btn-secondary">How It Works</a>
+            </div>
+            <div style="margin-top: 60px; display: flex; justify-content: center; gap: 40px; color: var(--muted); font-weight: 600;">
+                <div>⚡ 60 sec callback</div>
+                <div>🌙 24/7 Availability</div>
+                <div>✅ 100% Leads Contacted</div>
+            </div>
+        </div>
+    </header>
+
+    <section id="how-it-works" class="section-padding">
+        <div class="container">
+            <div class="grid-2">
+                <div>
+                    <span class="eyebrow">Outbound Flow</span>
+                    <h2 style="font-size: 2.5rem; margin-bottom: 24px;">From form submission to qualified lead — in minutes.</h2>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 32px;">
+                        <div class="feature-card">
+                            <div class="step-num">01</div>
+                            <h3>Buyer submits a form</h3>
+                            <p style="color: var(--muted);">Online enquiry, WhatsApp message, or ad lead — any source.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="step-num">02</div>
+                            <h3>J. Lambert calls them in 60 sec</h3>
+                            <p style="color: var(--muted);">AI calls the buyer, introduces itself as your agency, and starts qualifying naturally.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="step-num">03</div>
+                            <h3>WhatsApp summary sent</h3>
+                            <p style="color: var(--muted);">Agent gets name, details, and a HOT / WARM / COLD score on their phone. Immediately.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="visual-container">
+                    <div class="whatsapp-mockup">
+                        <div class="wa-header">
+                            <div class="wa-avatar"></div>
+                            <div>
+                                <div style="font-weight: 700;">J. Lambert AI</div>
+                                <div style="font-size: 0.7rem; color: var(--teal);">Online</div>
+                            </div>
+                        </div>
+                        <div class="wa-bubble agent-alert">
+                            <strong>Agent Alert — Abena Mensah</strong><br>
+                            GHS 600k · 3-bed · Pre-approved<br>
+                            <span style="display: flex; align-items: center; margin-top: 8px;">
+                                <span class="status-dot hot"></span> HOT ●
+                            </span>
+                            <div style="font-size: 0.6rem; text-align: right; opacity: 0.5;">9:01 AM</div>
+                        </div>
+                        <div class="wa-bubble">
+                            Hi, this is J. Lambert calling on behalf of Prime Realty. You enquired about one of our properties — is now a good time?
+                        </div>
+                        <div class="wa-bubble" style="background: #1f2c33; margin-left: 0; border: none;">
+                            Yes, go ahead!
+                        </div>
+                        <div class="wa-bubble">
+                            Great — are you looking to buy or rent, and what's your budget?
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding" style="background: var(--surface);">
+        <div class="container">
+            <div class="grid-2" style="direction: rtl;">
+                <div style="direction: ltr;">
+                    <span class="eyebrow">Inbound Flow</span>
+                    <h2 style="font-size: 2.5rem; margin-bottom: 24px;">Every call to your agency answered. Every time.</h2>
+                    <p style="color: var(--muted); margin-bottom: 40px;">J. Lambert AI picks up every inbound call instantly, qualifies the buyer, and sends your agent a WhatsApp summary — scored HOT, WARM, or COLD.</p>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 24px;">
+                        <div style="display: flex; gap: 20px; align-items: flex-start;">
+                            <div class="step-num">01</div>
+                            <div>
+                                <h3>Buyer calls your number</h3>
+                                <p style="color: var(--muted);">Your existing agency number. No change for the caller.</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 20px; align-items: flex-start;">
+                            <div class="step-num">02</div>
+                            <div>
+                                <h3>J. Lambert answers instantly</h3>
+                                <p style="color: var(--muted);">AI greets them as your agency, starts qualifying — budget, property type, timeline, finance.</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 20px; align-items: flex-start;">
+                            <div class="step-num">03</div>
+                            <div>
+                                <h3>WhatsApp summary sent</h3>
+                                <p style="color: var(--muted);">Agent gets name, details, and a HOT / WARM / COLD score on their phone. Immediately.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="visual-container" style="direction: ltr;">
+                    <div class="db-preview">
+                        <div class="db-header">
+                            <div class="db-stat">
+                                <h5>Total leads</h5>
+                                <span>12</span>
+                            </div>
+                            <div class="db-stat">
+                                <h5>HOT</h5>
+                                <span style="color: var(--hot);">4</span>
+                            </div>
+                        </div>
+                        <div class="db-row">
+                            <div style="font-weight: 700;">Kwame Asante</div>
+                            <div style="color: var(--muted);">GHS 500k · 3-bed</div>
+                            <div style="color: var(--hot);">HOT</div>
+                        </div>
+                        <div class="db-row">
+                            <div style="font-weight: 700;">Abena Mensah</div>
+                            <div style="color: var(--muted);">GHS 600k · 3-bed</div>
+                            <div style="color: var(--hot);">HOT</div>
+                        </div>
+                        <div class="db-row">
+                            <div style="font-weight: 700;">Kofi Acheampong</div>
+                            <div style="color: var(--muted);">GHS 200k · 1-bed</div>
+                            <div style="color: var(--muted);">Browsing</div>
+                        </div>
+                        <div style="text-align: center; margin-top: 12px; color: var(--teal);">+ View all leads in demo</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="setup" class="section-padding">
+        <div class="container" style="text-align: center;">
+            <span class="eyebrow">Setup</span>
+            <h2 style="font-size: 3rem; margin-bottom: 60px;">3 steps. Live in 24 hours.</h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px;">
+                <div class="feature-card">
+                    <div class="step-num" style="margin: 0 auto 20px;">01</div>
+                    <h3>Connect your lead source</h3>
+                    <p style="color: var(--muted);">Website form, WhatsApp, or ad platform. We connect it — nothing changes on your end.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="step-num" style="margin: 0 auto 20px;">02</div>
+                    <h3>30-min onboarding call</h3>
+                    <p style="color: var(--muted);">Tell us your properties, prices, FAQs. We configure J. Lambert to sound like your team.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="step-num" style="margin: 0 auto 20px;">03</div>
+                    <h3>Go live</h3>
+                    <p style="color: var(--muted);">Every new lead gets called back. Your agents get WhatsApp alerts and dashboard access.</p>
+                </div>
+            </div>
+            
+            <div style="margin-top: 80px;">
+                <a href="app.html" class="btn btn-primary" style="padding: 20px 60px; font-size: 1.2rem;">Open the Demo Dashboard</a>
+                <p style="margin-top: 24px; color: var(--muted);">jlambert.in · jon@jlambert.in</p>
+            </div>
+        </div>
+    </section>
+
+    <footer style="padding: 60px 0; border-top: 1px solid var(--line); text-align: center; color: var(--muted); font-size: 0.9rem;">
+        <div class="container">
+            <p>&copy; 2026 J. Lambert AI. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

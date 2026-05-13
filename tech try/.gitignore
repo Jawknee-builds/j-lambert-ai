@@ -1,0 +1,6 @@
+node_modules
+.DS_Store
+.env
+# Keep local data out of git if deploying clean
+# data/leads.json
+# data/brochures/*

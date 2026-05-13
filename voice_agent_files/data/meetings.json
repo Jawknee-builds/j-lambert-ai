@@ -1,0 +1,52 @@
+[
+  {
+    "id": "8ce28feb-2ef3-4139-9fff-38b736c42f64",
+    "name": "Lachlan Sterling",
+    "date": "2026-05-14",
+    "time": "10:30",
+    "datetime": "2026-05-15T00:40:22.283Z",
+    "property": "Parramatta Central",
+    "notes": "Interested in level 12 corner suite. Needs high ceilings.",
+    "createdAt": "2026-05-13T14:40:22.283Z"
+  },
+  {
+    "id": "64eb498c-9805-41af-9537-2c41ce9a574b",
+    "name": "Chloe Sutherland",
+    "date": "2026-05-15",
+    "time": "14:15",
+    "datetime": "2026-05-16T04:10:22.283Z",
+    "property": "Southbank Residences",
+    "notes": "Viewing the 3-bed penthouse mockup.",
+    "createdAt": "2026-05-13T14:40:22.284Z"
+  },
+  {
+    "id": "5d1f291c-2240-42a8-87f0-f65ce4d950fe",
+    "name": "Harrison Forde",
+    "date": "2026-05-16",
+    "time": "09:00",
+    "datetime": "2026-05-16T23:40:22.284Z",
+    "property": "General Enquiry",
+    "notes": "First-time investor discussion.",
+    "createdAt": "2026-05-13T14:40:22.284Z"
+  },
+  {
+    "id": "7d728e6f-116d-45ce-9489-9a0ca6b497d8",
+    "name": "Sarah Mitchell",
+    "date": "2026-05-17",
+    "time": "11:00",
+    "datetime": "2026-05-18T01:40:22.284Z",
+    "property": "Parramatta Central",
+    "notes": "Second viewing with partner.",
+    "createdAt": "2026-05-13T14:40:22.284Z"
+  },
+  {
+    "id": "fc71cac4-b9ba-43c1-b56e-d13928db517f",
+    "name": "Mateo Silva",
+    "date": "2026-05-18",
+    "time": "16:30",
+    "datetime": "2026-05-19T07:10:22.284Z",
+    "property": "Southbank Residences",
+    "notes": "Contract review session.",
+    "createdAt": "2026-05-13T14:40:22.284Z"
+  }
+]
