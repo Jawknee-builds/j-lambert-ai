@@ -27,11 +27,11 @@
           <a href="#capture">
             <span>AI Concierge</span>
           </a>
+          <a href="#summaries">
+            <span>Lead Matrix</span>
+          </a>
           <a href="#knowledge">
             <span>Knowledge</span>
-          </a>
-          <a href="#summaries">
-            <span>Leads</span>
           </a>
           <a href="#schedule">
             <span>Schedule</span>
@@ -76,7 +76,79 @@
           </div>
         </section>
 
-        <section class="panel" id="analytics">
+        <!-- AI COMMAND CENTER (PULLED UP) -->
+        <div style="display: grid; grid-template-columns: minmax(0,1fr) minmax(0,360px); gap: 24px; margin-bottom: 48px;">
+          <section class="panel" id="capture" style="border: 2px solid var(--teal-glow); position: relative; overflow: hidden;">
+            <div style="position: absolute; top: 0; right: 0; padding: 12px 20px; background: var(--teal); color: #000; font-size: 0.6rem; font-weight: 800; text-transform: uppercase; border-bottom-left-radius: 12px; z-index: 10;">Live AI Ready</div>
+            
+            <div class="panel-head">
+              <div>
+                <p>Real-time Capture</p>
+                <h2>AI Concierge Session</h2>
+              </div>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 300px 1fr; gap: 32px; align-items: flex-start;">
+              <div class="phone-frame" style="width: 100%; height: 500px;">
+                <div class="call-screen">
+                  <div style="z-index:2; display:flex; flex-direction:column; align-items:center; gap:4px; margin-bottom: 12px;">
+                    <img src="assets/logo_square.png" alt="JL" style="width:40px;height:40px;border-radius:8px;box-shadow: 0 0 20px rgba(0,168,132,0.4);">
+                    <span style="font-size:0.55rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--muted);font-weight:700; margin-top:8px;">J. Lambert Concierge</span>
+                  </div>
+                  <div class="waveform" id="waveform" style="height: 40px; margin-bottom: 20px;">
+                    <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                  </div>
+                  <div class="voice-status" id="voiceStatus" style="font-size:0.7rem; color:var(--teal); font-weight:800; text-transform:uppercase; letter-spacing:0.1em; margin-bottom: 16px;">Standby</div>
+                  <div class="transcript-box" id="transcriptBox" style="font-size: 0.75rem;"></div>
+                </div>
+              </div>
+
+              <div style="flex:1; min-width:0; display: flex; flex-direction: column; gap: 20px;">
+                <div>
+                  <h3 style="margin-bottom:8px; font-size:1rem; color: #fff;">Agent Command</h3>
+                  <p style="color: var(--muted); margin-bottom: 16px; font-weight: 500; font-size: 0.8rem; line-height: 1.5;">
+                    Activate the voice agent to handle inbound enquiries. Data is synced instantly.
+                  </p>
+                  <div style="display: flex; gap: 12px;">
+                    <button id="startVoice" class="accent" style="flex:1; height: 48px; font-size: 0.85rem;">📞 Start Session</button>
+                    <button id="stopVoice" class="secondary" style="display: none; border-color: var(--red); color: var(--red); flex:1; height: 48px; font-size: 0.85rem;">🛑 End Session</button>
+                  </div>
+                </div>
+                
+                <div id="aiAnalyzing" style="display: none; align-items: center; gap: 12px; padding: 12px; background: var(--accent-light); border-radius: 12px; border: 1px solid rgba(0, 168, 132, 0.1);">
+                  <div class="spinner" style="width:14px; height:14px; border:2px solid var(--accent); border-top-color:transparent; border-radius:50%; animation: spin 0.8s linear infinite;"></div>
+                  <span id="aiAnalyzingText" style="font-size:0.75rem; font-weight:800; color:var(--accent);">AI INDEXING LEAD...</span>
+                </div>
+                
+                <div style="background: #0f172a; border-radius: 16px; padding: 16px; border: 1px solid rgba(255,255,255,0.05); flex: 1; display: flex; flex-direction: column;">
+                  <h4 style="font-size:0.6rem; text-transform:uppercase; letter-spacing:0.15em; color: rgba(255,255,255,0.3); margin-bottom:12px; font-weight: 900;">Intelligence Logs</h4>
+                  <div id="aiBrainLogs" style="height: 160px; overflow-y: auto; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: rgba(255,255,255,0.6); display: flex; flex-direction: column; gap: 6px; line-height: 1.4;">
+                    <div style="color: rgba(255,255,255,0.2)">[System] Ready for input...</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel" id="knowledge">
+            <div class="panel-head">
+              <div>
+                <p>Base Training</p>
+                <h2>Agent Context</h2>
+              </div>
+            </div>
+            <textarea id="knowledgeInput" placeholder="Property highlights, pricing, scripts..." style="width: 100%; height: 120px; margin-bottom: 12px; font-size: 0.8rem;"></textarea>
+            <div style="display: grid; grid-template-columns: 1fr; gap: 10px; margin-bottom: 20px;">
+              <button id="saveKnowledge" class="accent" style="font-size: 0.75rem; height: 44px;">💾 Sync Brain</button>
+              <button onclick="document.getElementById('pdfUpload').click()" class="secondary" style="font-size: 0.7rem; height: 40px;">📁 Upload PDF</button>
+              <input type="file" id="pdfUpload" accept=".pdf" style="display: none;">
+            </div>
+            <div id="fileList" style="display: grid; gap: 8px; font-size: 0.75rem;"></div>
+          </section>
+        </div>
+
+        <!-- ANALYTICS (MOVED DOWN) -->
+        <section class="panel" id="analytics" style="margin-bottom: 48px;">
           <div class="panel-head">
             <div>
               <p>Performance ROI</p>
@@ -102,74 +174,6 @@
           </div>
         </section>
 
-        <div style="display: grid; grid-template-columns: minmax(0,1fr) minmax(0,360px); gap: 24px; margin-bottom: 48px;">
-          <section class="panel" id="capture">
-            <div class="panel-head">
-              <div>
-                <p>Live Capture</p>
-                <h2>AI Concierge Session</h2>
-              </div>
-            </div>
-            
-            <div style="display: grid; grid-template-columns: 320px 1fr; gap: 40px; align-items: flex-start;">
-              <div class="phone-frame">
-                <div class="call-screen">
-                  <div style="z-index:2; display:flex; flex-direction:column; align-items:center; gap:4px; margin-bottom: 16px;">
-                    <img src="assets/logo_square.png" alt="JL" style="width:48px;height:48px;border-radius:8px;box-shadow: 0 0 20px rgba(0,168,132,0.4);">
-                    <span style="font-size:0.6rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--muted);font-weight:700; margin-top:8px;">J. Lambert Concierge</span>
-                  </div>
-                  <div class="waveform" id="waveform">
-                    <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
-                  </div>
-                  <div class="voice-status" id="voiceStatus" style="font-size:0.75rem; color:var(--teal); font-weight:800; text-transform:uppercase; letter-spacing:0.1em;">Standby</div>
-                  <div class="transcript-box" id="transcriptBox"></div>
-                </div>
-              </div>
-
-              <div style="flex:1; min-width:0; display: flex; flex-direction: column; gap: 24px;">
-                <div>
-                  <h3 style="margin-bottom:8px; font-size:1.1rem; color: #fff;">Session Intelligence</h3>
-                  <p style="color: var(--muted); margin-bottom: 20px; font-weight: 500; font-size: 0.85rem; line-height: 1.6;">
-                    Deploy the real-time voice agent to handle property enquiries. Details are automatically indexed into your matrix.
-                  </p>
-                  <div style="display: flex; gap: 12px; margin-bottom: 12px;">
-                    <button id="startVoice" class="accent" style="flex:1; height: 52px; font-size: 0.9rem;">📞 Start Session</button>
-                    <button id="stopVoice" class="secondary" style="display: none; border-color: var(--red); color: var(--red); flex:1; height: 52px; font-size: 0.9rem;">🛑 End Session</button>
-                  </div>
-                </div>
-                
-                <div id="aiAnalyzing" style="display: none; align-items: center; gap: 12px; padding: 16px; background: var(--accent-light); border-radius: 12px; border: 1px solid rgba(0, 168, 132, 0.1);">
-                  <div class="spinner" style="width:16px; height:16px; border:2px solid var(--accent); border-top-color:transparent; border-radius:50%; animation: spin 0.8s linear infinite;"></div>
-                  <span id="aiAnalyzingText" style="font-size:0.8rem; font-weight:800; color:var(--accent);">AI INDEXING LEAD...</span>
-                </div>
-                
-                <div style="background: #0f172a; border-radius: 16px; padding: 20px; border: 1px solid rgba(255,255,255,0.1); flex: 1; display: flex; flex-direction: column;">
-                  <h4 style="font-size:0.65rem; text-transform:uppercase; letter-spacing:0.15em; color: rgba(255,255,255,0.4); margin-bottom:12px; font-weight: 900;">Live Event Terminal</h4>
-                  <div id="aiBrainLogs" style="height: 220px; overflow-y: auto; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: rgba(255,255,255,0.7); display: flex; flex-direction: column; gap: 8px; line-height: 1.5;">
-                    <div style="color: rgba(255,255,255,0.3)">[System] Terminal initialized...</div>
-                  </div>
-                </div>
-              </div></div>
-            </div>
-          </section>
-
-          <section class="panel" id="knowledge">
-            <div class="panel-head">
-              <div>
-                <p>Training</p>
-                <h2>Agent Knowledge</h2>
-              </div>
-            </div>
-            <textarea id="knowledgeInput" placeholder="Add property highlights, pricing, or scripts..." style="width: 100%; height: 140px; margin-bottom: 16px; font-size: 0.85rem;"></textarea>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px;">
-              <button onclick="document.getElementById('pdfUpload').click()" class="secondary" style="font-size: 0.75rem;">📁 Upload PDF</button>
-              <button id="saveKnowledge" class="accent" style="font-size: 0.75rem;">💾 Sync Text</button>
-              <input type="file" id="pdfUpload" accept=".pdf" style="display: none;">
-            </div>
-            <div id="fileList" style="display: grid; gap: 8px;"></div>
-          </section>
-        </div>
-
         <section class="panel" id="summaries">
           <div class="panel-head">
             <div>
@@ -177,8 +181,8 @@
               <h2>Lead Profile Matrix</h2>
             </div>
             <div style="display: flex; gap: 12px;">
-              <button id="exportLeads" class="secondary">📥 Export</button>
-              <button id="refreshLeads" class="secondary">↻ Sync</button>
+              <button id="exportLeads" class="secondary">📥 Export CSV</button>
+              <button id="refreshLeads" class="accent" style="padding: 10px 20px;">↻ Sync Data</button>
             </div>
           </div>
           <div class="table-wrapper">
@@ -193,9 +197,7 @@
                   <th>Last Action</th>
                 </tr>
               </thead>
-              <tbody id="leadTableBody">
-                <!-- Data will be injected here -->
-              </tbody>
+              <tbody id="leadTableBody"></tbody>
             </table>
           </div>
         </section>
@@ -211,21 +213,21 @@
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
             <div style="display:grid; gap:20px;">
               <div>
-                <label>Lead Name</label>
+                <label style="font-size: 0.7rem; color: var(--muted); text-transform: uppercase; font-weight: 800; margin-bottom: 8px; display: block;">Lead Name</label>
                 <input id="mtgName" type="text" placeholder="e.g. Jonathan Walsh">
               </div>
               <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
                 <div>
-                  <label>Date</label>
+                  <label style="font-size: 0.7rem; color: var(--muted); text-transform: uppercase; font-weight: 800; margin-bottom: 8px; display: block;">Date</label>
                   <input id="mtgDate" type="date">
                 </div>
                 <div>
-                  <label>Time</label>
+                  <label style="font-size: 0.7rem; color: var(--muted); text-transform: uppercase; font-weight: 800; margin-bottom: 8px; display: block;">Time</label>
                   <input id="mtgTime" type="time">
                 </div>
               </div>
               <div>
-                <label>Property</label>
+                <label style="font-size: 0.7rem; color: var(--muted); text-transform: uppercase; font-weight: 800; margin-bottom: 8px; display: block;">Property</label>
                 <select id="mtgProperty">
                   <option>Parramatta Central</option>
                   <option>Southbank Residences</option>
@@ -233,7 +235,7 @@
                 </select>
               </div>
               <div>
-                <label>Notes</label>
+                <label style="font-size: 0.7rem; color: var(--muted); text-transform: uppercase; font-weight: 800; margin-bottom: 8px; display: block;">Notes</label>
                 <textarea id="mtgNotes" placeholder="Budget, unit type, etc." style="height:100px;"></textarea>
               </div>
               <button id="bookMeeting" class="accent">📅 Confirm Booking</button>
