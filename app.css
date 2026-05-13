@@ -234,10 +234,6 @@ main {
   animation: pulse 1s infinite;
 }
 
-.waveform span:nth-child(2) { animation-delay: 0.2s; }
-.waveform span:nth-child(3) { animation-delay: 0.4s; }
-.waveform span:nth-child(4) { animation-delay: 0.6s; }
-
 @keyframes pulse {
   0%, 100% { height: 10px; opacity: 0.5; }
   50% { height: 30px; opacity: 1; }
@@ -315,10 +311,9 @@ button:active { transform: scale(0.96); }
 button.accent { background: var(--teal); color: #000; }
 button.accent:hover { box-shadow: 0 0 20px var(--teal-glow); }
 button.secondary { background: rgba(255, 255, 255, 0.05); color: #fff; border: 1px solid var(--line); }
-button.secondary:hover { background: rgba(255, 255, 255, 0.1); }
 
 textarea, input, select {
-  background: var(--surface-bright);
+  background: var(--panel-light);
   border: 1px solid var(--line);
   color: #fff;
   padding: 14px 18px;
@@ -335,16 +330,17 @@ textarea:focus, input:focus { border-color: var(--teal); }
   display: none;
   position: fixed;
   top: 20px;
-  left: 20px;
+  right: 20px;
   background: var(--teal);
   color: #000;
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
   align-items: center;
   justify-content: center;
-  z-index: 1100;
+  z-index: 2000;
   cursor: pointer;
+  box-shadow: 0 10px 30px rgba(0, 168, 132, 0.3);
 }
 
 /* RESPONSIVE OVERRIDES */
@@ -360,29 +356,36 @@ textarea:focus, input:focus { border-color: var(--teal); }
   }
   .sidebar-collapsed aside { left: 0; box-shadow: 20px 0 60px rgba(0,0,0,0.8); }
   .sidebar-toggle { display: flex; }
-  main { padding: 80px 24px 40px; }
+  main { padding: 100px 20px 40px; }
   
-  .header { flex-direction: column; align-items: flex-start; }
+  .header { flex-direction: column; align-items: flex-start; gap: 12px; }
 }
 
 @media (max-width: 768px) {
-  .dashboard-grid { grid-template-columns: 1fr; }
+  .dashboard-grid { grid-template-columns: 1fr !important; }
   .panel { padding: 24px; }
   
-  /* AI Command Center Layout */
-  #capture > div:last-child {
-    grid-template-columns: 1fr !important;
+  /* Force stack sections */
+  main section, main > div {
+    display: flex !important;
+    flex-direction: column !important;
   }
   
-  .phone-frame { height: 450px !important; }
+  .phone-frame { width: 100% !important; max-width: 340px; margin: 0 auto; height: 500px !important; }
   
   .panel-head { flex-direction: column; align-items: flex-start; gap: 16px; }
   .panel-head div:last-child { width: 100%; display: flex; gap: 12px; }
-  .panel-head button { flex: 1; }
+  .panel-head button { flex: 1; font-size: 0.7rem; padding: 10px; }
+  
+  /* Meeting scheduler */
+  #schedule > div { grid-template-columns: 1fr !important; }
+  
+  /* Analytics grid */
+  #analytics > div { grid-template-columns: 1fr !important; }
 }
 
 @media (max-width: 480px) {
-  .header-left h2 { font-size: 1.75rem; }
+  .header-left h2 { font-size: 1.5rem; }
   .metric-card .value { font-size: 1.75rem; }
   .btn { width: 100%; }
 }
