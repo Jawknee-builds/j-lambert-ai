@@ -341,6 +341,65 @@ async function handleApi(req, res) {
     sendJson(res, 200, metrics);
     return;
   }
+  if (req.method === "GET" && url.pathname === "/api/vapi-config") {
+    let brochuresText = "";
+    try {
+      const files = await fs.readdir(BROCHURES_DIR);
+      for (const file of files) {
+        const filePath = path.join(BROCHURES_DIR, file);
+        if (file.endsWith(".md") || file.endsWith(".txt")) {
+          const content = await fs.readFile(filePath, "utf8");
+          brochuresText += `\n--- Catalog: ${file} ---\n${content}\n`;
+        } else if (file.endsWith(".pdf")) {
+          const dataBuffer = await fs.readFile(filePath);
+          try {
+            const data = await pdf(dataBuffer);
+            brochuresText += `\n--- PDF Catalog: ${file} ---\n${data.text}\n`;
+          } catch (e) {
+            console.error(`Error parsing PDF ${file}:`, e);
+          }
+        }
+      }
+    } catch (e) {
+      console.error(e);
+    }
+
+    const assistantConfig = {
+      model: {
+        provider: "openai",
+        model: "gpt-4o",
+        systemPrompt: `
+# ROLE
+You are an elite, warm, and highly professional Luxury Real Estate Concierge for J Lambert & Co.
+
+# CRITICAL SPEAKING RULES — FOLLOW THESE EXACTLY
+- **KEEP RESPONSES SHORT**: Max 1-2 sentences per turn. Pause and let the user respond. Never monologue.
+- **LISTEN FIRST**: If the user starts speaking, STOP immediately. Don't finish your sentence.
+- **ASK ONE THING AT A TIME**: Never ask two questions in one turn. Pick the most important one.
+- **REACT NATURALLY**: If they say something, react to it briefly, then ask one follow-up.
+
+# MISSION (collect naturally through conversation)
+1. Name → Budget → Interest (Owner/Investor) → Timeline
+
+# CATALOG DATA
+${brochuresText}
+
+# FORMAT
+- **TTS PRONUNCIATION**: Never use abbreviations like "k" or "M" for numbers. Always say "five hundred thousand dollars" instead of "$500k". Write out large numbers naturally so the voice engine pronounces them correctly.
+- Keep it warm, human, and concise.
+`,
+      },
+      voice: {
+        provider: "openai",
+        voiceId: "shimmer",
+      },
+      firstMessage: "Hi! I'm the J Lambert concierge — who am I speaking with today?",
+      silenceTimeoutSeconds: 20,
+      maxDurationSeconds: 600,
+    };
+    sendJson(res, 200, assistantConfig);
+    return;
+  }
 
   if (req.method === "POST" && url.pathname === "/api/extract-lead") {
     const body = await readBody(req);
