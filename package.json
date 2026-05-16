@@ -10,6 +10,7 @@
     "node": ">=18"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.105.4",
     "busboy": "^1.6.0",
     "pdf-parse": "^2.4.5"
   }

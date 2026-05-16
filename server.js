@@ -4,10 +4,20 @@ const path = require("node:path");
 const crypto = require("node:crypto");
 const Busboy = require("busboy");
 const pdf = require("pdf-parse");
+const { createClient } = require("@supabase/supabase-js");
 
 const PORT = Number(process.env.PORT || 4173);
 const HOST = process.env.HOST || "0.0.0.0";
 const GEMINI_MODEL = process.env.GEMINI_MODEL || "gemini-1.5-flash";
+
+const SUPABASE_URL = process.env.SUPABASE_URL;
+const SUPABASE_KEY = process.env.SUPABASE_KEY;
+let supabase = null;
+
+if (SUPABASE_URL && SUPABASE_KEY) {
+  supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+  console.log("Supabase connected. Data will be persisted.");
+}
 
 // Root-level data directory for hosting stability
 const ROOT = __dirname;
@@ -30,6 +40,24 @@ const mimeTypes = {
 };
 
 async function ensureDb() {
+  if (supabase) {
+    try {
+      const { count } = await supabase.from('leads').select('*', { count: 'exact', head: true });
+      if (count === 0) {
+        console.log("Seeding Supabase leads...");
+        await supabase.from('leads').insert(seedLeads());
+      }
+      const { count: mCount } = await supabase.from('meetings').select('*', { count: 'exact', head: true });
+      if (mCount === 0) {
+        console.log("Seeding Supabase meetings...");
+        await supabase.from('meetings').insert(seedMeetings());
+      }
+    } catch (e) {
+      console.error("Supabase seed error:", e.message);
+    }
+    return;
+  }
+
   await fs.mkdir(DATA_DIR, { recursive: true });
   await fs.mkdir(BROCHURES_DIR, { recursive: true });
   
@@ -198,6 +226,14 @@ function clean(value) {
 }
 
 async function readLeads() {
+  if (supabase) {
+    const { data, error } = await supabase.from('leads').select('*').order('createdAt', { ascending: false });
+    if (error) {
+      console.error("Supabase readLeads error:", error.message);
+      return [];
+    }
+    return data || [];
+  }
   await ensureDb();
   try {
     const raw = await fs.readFile(DB_PATH, "utf8");
@@ -207,8 +243,48 @@ async function readLeads() {
   }
 }
 
-async function writeLeads(leads) {
+async function insertLead(lead) {
+  if (supabase) {
+    const { error } = await supabase.from('leads').insert([lead]);
+    if (error) console.error("Supabase insertLead error:", error.message);
+    return;
+  }
+  const leads = await readLeads();
+  leads.unshift(lead);
   await fs.writeFile(DB_PATH, JSON.stringify(leads, null, 2));
+}
+
+async function readMeetings() {
+  if (supabase) {
+    const { data, error } = await supabase.from('meetings').select('*').order('createdAt', { ascending: false });
+    if (error) {
+      console.error("Supabase readMeetings error:", error.message);
+      return [];
+    }
+    return data || [];
+  }
+  try {
+    const raw = await fs.readFile(MEETINGS_PATH, "utf8");
+    return JSON.parse(raw);
+  } catch {
+    return [];
+  }
+}
+
+async function insertMeeting(meeting) {
+  if (supabase) {
+    const { error } = await supabase.from('meetings').insert([meeting]);
+    if (error) console.error("Supabase insertMeeting error:", error.message);
+    return;
+  }
+  try {
+    const raw = await fs.readFile(MEETINGS_PATH, "utf8");
+    const meetings = JSON.parse(raw);
+    meetings.push(meeting);
+    await fs.writeFile(MEETINGS_PATH, JSON.stringify(meetings, null, 2));
+  } catch {
+    console.error("Failed to save meeting locally");
+  }
 }
 
 async function readBody(req) {
@@ -303,9 +379,7 @@ ${transcriptText}`;
         turns: body.conversation.length,
         ...parsed
       });
-      const leads = await readLeads();
-      leads.unshift(lead); // Put new lead at top
-      await writeLeads(leads);
+      await insertLead(lead);
       sendJson(res, 201, lead);
     } catch (e) {
       console.error("Extraction failed:", e);
@@ -315,12 +389,8 @@ ${transcriptText}`;
   }
 
   if (req.method === "GET" && url.pathname === "/api/meetings") {
-    try {
-      const raw = await fs.readFile(MEETINGS_PATH, "utf8");
-      sendJson(res, 200, JSON.parse(raw));
-    } catch {
-      sendJson(res, 200, []);
-    }
+    const meetings = await readMeetings();
+    sendJson(res, 200, meetings);
     return;
   }
 
@@ -332,15 +402,8 @@ ${transcriptText}`;
       datetime: new Date(`${body.date}T${body.time}`).toISOString(),
       createdAt: new Date().toISOString(),
     };
-    try {
-      const raw = await fs.readFile(MEETINGS_PATH, "utf8");
-      const meetings = JSON.parse(raw);
-      meetings.push(meeting);
-      await fs.writeFile(MEETINGS_PATH, JSON.stringify(meetings, null, 2));
-      sendJson(res, 201, meeting);
-    } catch {
-      sendJson(res, 500, { error: "Failed to save" });
-    }
+    await insertMeeting(meeting);
+    sendJson(res, 201, meeting);
     return;
   }
 
