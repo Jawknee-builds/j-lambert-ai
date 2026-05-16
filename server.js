@@ -484,6 +484,7 @@ ${transcriptText}`;
       supabase_configured: !!supabase,
       urlPrefix: SUPABASE_URL ? SUPABASE_URL.substring(0, 15) : "Not set",
       key: SUPABASE_KEY ? "Set" : "Not set",
+      geminiKey: process.env.GEMINI_API_KEY ? "Set" : "Not set",
       time: new Date().toISOString()
     });
     return;
