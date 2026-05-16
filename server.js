@@ -438,6 +438,11 @@ ${transcriptText}`;
         const text = data.candidates?.[0]?.content?.parts?.[0]?.text || "{}";
         const cleaned = text.replace(/```json/g, "").replace(/```/g, "").trim();
         parsed = JSON.parse(cleaned);
+      } else {
+        const errText = await response.text();
+        console.error("Gemini API Error:", errText);
+        sendJson(res, 500, { error: "Gemini AI failed to process transcript", details: errText });
+        return;
       }
 
       const lead = createLead({
