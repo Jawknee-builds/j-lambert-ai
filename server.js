@@ -485,32 +485,20 @@ ${transcriptText}`;
   }
 
   if (req.method === "GET" && url.pathname === "/api/test-models") {
-    const modelsToTest = ["gemini-1.5-flash", "gemini-1.5-flash-latest", "gemini-1.5-pro", "gemini-pro", "gemini-1.0-pro"];
-    const results = {};
-    for (const m of modelsToTest) {
-      try {
-        const response = await fetch(
-          `https://generativelanguage.googleapis.com/v1beta/models/${m}:generateContent?key=${process.env.GEMINI_API_KEY}`,
-          {
-            method: "POST",
-            headers: { "content-type": "application/json" },
-            body: JSON.stringify({
-              contents: [{ role: "user", parts: [{ text: "Hello" }] }],
-              generationConfig: { responseMimeType: "application/json", temperature: 0.1 },
-            }),
-          }
-        );
-        if (response.ok) {
-          results[m] = "SUCCESS";
-        } else {
-          const errText = await response.text();
-          results[m] = "FAILED: " + errText.substring(0, 50);
-        }
-      } catch (e) {
-        results[m] = "ERROR: " + e.message;
+    try {
+      const response = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models?key=${process.env.GEMINI_API_KEY}`
+      );
+      if (response.ok) {
+        const data = await response.json();
+        sendJson(res, 200, { success: true, models: data.models.map(m => m.name) });
+      } else {
+        const errText = await response.text();
+        sendJson(res, 500, { success: false, error: errText });
       }
+    } catch (e) {
+      sendJson(res, 500, { success: false, error: e.message });
     }
-    sendJson(res, 200, results);
     return;
   }
 
