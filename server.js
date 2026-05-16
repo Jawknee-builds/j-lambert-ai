@@ -479,6 +479,16 @@ ${transcriptText}`;
     return;
   }
 
+  if (req.method === "GET" && url.pathname === "/api/debug") {
+    sendJson(res, 200, {
+      supabase_configured: !!supabase,
+      url: SUPABASE_URL ? "Set" : "Not set",
+      key: SUPABASE_KEY ? "Set" : "Not set",
+      time: new Date().toISOString()
+    });
+    return;
+  }
+
   sendJson(res, 404, { error: "Not found" });
 }
 
