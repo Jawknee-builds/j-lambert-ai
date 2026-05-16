@@ -137,7 +137,8 @@ const BRAND_NAMES = [
 
 function createLead(input) {
   const randomName = BRAND_NAMES[Math.floor(Math.random() * BRAND_NAMES.length)];
-  const nameClean = clean(input.name) || randomName;
+  let nameClean = clean(input.name) || randomName;
+  nameClean = nameClean.replace(/ Voice AI$/i, "").trim();
   
   const randPhone = () => `+61 4${Math.floor(10000000 + Math.random() * 89999999)}`;
   const randEmail = (name) => `${name.toLowerCase().replace(/\s/g, '.')}@jlambert.in`;
@@ -414,8 +415,14 @@ ${brochuresText}
     const body = await readBody(req);
     const transcriptText = body.conversation.map(c => `${c.role}: ${c.text}`).join("\n");
     
-    const prompt = `Extract lead details from transcript as JSON:
+    const prompt = `Extract ONLY the raw lead details from this transcript as JSON.
+Format exactly like this:
 {"name":"","email":"","phone":"","interest":"","budget":"","timeline":"","finance":""}
+
+CRITICAL RULES:
+- For "name", extract ONLY their actual spoken name. Do not append "Voice AI", titles, or any other suffixes.
+- If a detail is missing, leave the string empty "".
+
 Transcript:
 ${transcriptText}`;
 
