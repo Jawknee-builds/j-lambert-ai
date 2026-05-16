@@ -482,7 +482,7 @@ ${transcriptText}`;
   if (req.method === "GET" && url.pathname === "/api/debug") {
     sendJson(res, 200, {
       supabase_configured: !!supabase,
-      url: SUPABASE_URL ? "Set" : "Not set",
+      urlPrefix: SUPABASE_URL ? SUPABASE_URL.substring(0, 15) : "Not set",
       key: SUPABASE_KEY ? "Set" : "Not set",
       time: new Date().toISOString()
     });
