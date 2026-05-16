@@ -177,31 +177,33 @@
       voiceConversation = [];
 
       try {
-        const module = await import("https://esm.sh/@vapi-ai/web");
-        const Vapi = module.default || module.Vapi;
-        vapi = new Vapi("b89e5cb6-4c46-4349-9b67-f832ddb04230");
-        
-        vapi.on('speech-start', () => { statusEl.textContent = '🤖 Agent Speaking...'; });
-        vapi.on('speech-end', () => { statusEl.textContent = '🎙️ Listening...'; });
-        
-        vapi.on('message', (msg) => {
-          if (msg.type === 'transcript' && msg.transcriptType === 'final') {
-            transcriptEl.innerHTML += `<div style="margin-bottom:8px;"><strong>${msg.role === 'user' ? 'You' : 'AI'}:</strong> ${msg.transcript}</div>`;
-            transcriptEl.scrollTop = transcriptEl.scrollHeight;
-            voiceConversation.push({ role: msg.role, text: msg.transcript });
-          }
-        });
+        if (!vapi) {
+          const module = await import("https://esm.sh/@vapi-ai/web");
+          const Vapi = module.default || module.Vapi;
+          vapi = new Vapi("b89e5cb6-4c46-4349-9b67-f832ddb04230");
+          
+          vapi.on('speech-start', () => { statusEl.textContent = '🤖 Agent Speaking...'; });
+          vapi.on('speech-end', () => { statusEl.textContent = '🎙️ Listening...'; });
+          
+          vapi.on('message', (msg) => {
+            if (msg.type === 'transcript' && msg.transcriptType === 'final') {
+              transcriptEl.innerHTML += `<div style="margin-bottom:8px;"><strong>${msg.role === 'user' ? 'You' : 'AI'}:</strong> ${msg.transcript}</div>`;
+              transcriptEl.scrollTop = transcriptEl.scrollHeight;
+              voiceConversation.push({ role: msg.role, text: msg.transcript });
+            }
+          });
 
-        vapi.on('call-end', async () => {
-          if (voiceConversation.length > 0) {
-            fetch('https://j-lambert-ai.onrender.com/api/extract-lead', {
-              method: 'POST',
-              headers: { 'content-type': 'application/json' },
-              body: JSON.stringify({ conversation: voiceConversation })
-            });
-          }
-          modal.style.display = 'none';
-        });
+          vapi.on('call-end', async () => {
+            if (voiceConversation.length > 0) {
+              fetch('https://j-lambert-ai.onrender.com/api/extract-lead', {
+                method: 'POST',
+                headers: { 'content-type': 'application/json' },
+                body: JSON.stringify({ conversation: voiceConversation })
+              }).catch(err => console.error("Extract lead error:", err));
+            }
+            modal.style.display = 'none';
+          });
+        }
 
         const configRes = await fetch('https://j-lambert-ai.onrender.com/api/vapi-config');
         const assistantConfig = await configRes.json();

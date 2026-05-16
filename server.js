@@ -246,12 +246,16 @@ async function readLeads() {
 async function insertLead(lead) {
   if (supabase) {
     const { error } = await supabase.from('leads').insert([lead]);
-    if (error) console.error("Supabase insertLead error:", error.message);
-    return;
+    if (error) {
+      console.error("Supabase insertLead error:", error.message);
+      return error;
+    }
+    return null;
   }
   const leads = await readLeads();
   leads.unshift(lead);
   await fs.writeFile(DB_PATH, JSON.stringify(leads, null, 2));
+  return null;
 }
 
 async function readMeetings() {
@@ -274,16 +278,21 @@ async function readMeetings() {
 async function insertMeeting(meeting) {
   if (supabase) {
     const { error } = await supabase.from('meetings').insert([meeting]);
-    if (error) console.error("Supabase insertMeeting error:", error.message);
-    return;
+    if (error) {
+      console.error("Supabase insertMeeting error:", error.message);
+      return error;
+    }
+    return null;
   }
   try {
     const raw = await fs.readFile(MEETINGS_PATH, "utf8");
     const meetings = JSON.parse(raw);
     meetings.push(meeting);
     await fs.writeFile(MEETINGS_PATH, JSON.stringify(meetings, null, 2));
+    return null;
   } catch {
     console.error("Failed to save meeting locally");
+    return { message: "Local save failed" };
   }
 }
 
@@ -438,7 +447,11 @@ ${transcriptText}`;
         turns: body.conversation.length,
         ...parsed
       });
-      await insertLead(lead);
+      const dbErr = await insertLead(lead);
+      if (dbErr) {
+        sendJson(res, 500, { error: "DB Error: " + dbErr.message });
+        return;
+      }
       sendJson(res, 201, lead);
     } catch (e) {
       console.error("Extraction failed:", e);
