@@ -1,78 +1,101 @@
-# LeadPilot AI MVP
+# 📞 LeadPilot AI MVP — Luxury Real Estate Voice Concierge
 
-AI lead concierge MVP for AU/NZ real estate teams.
+[![License: MIT](https://img.shields.io/badge/License-MIT-purple.svg)](https://opensource.org/licenses/MIT)
+[![NodeJS](https://img.shields.io/badge/Backend-Node.js%20%7C%20Express-green.svg)](#)
+[![Gemini](https://img.shields.io/badge/Model-Gemini%202.5%20Flash-blue.svg)](#)
+[![Vapi SDK](https://img.shields.io/badge/Voice%20SDK-Vapi%20AI-00A884.svg)](#)
+[![Supabase](https://img.shields.io/badge/Database-Supabase-3ECF8E.svg)](#)
+[![Deployment Backend](https://img.shields.io/badge/Deploy-Railway-0B0D17.svg)](#)
 
-## What It Does
+LeadPilot AI is an enterprise-grade autonomous voice concierge designed specifically for AU/NZ luxury real estate teams. Powered by **Vapi AI WebRTC audio channels** and **Gemini 2.5 Flash reasoning engines**, it acts as a digital front-desk, dynamically parsing and answering complex real estate brochure contexts, answering inbound buyer enquiries, scoring intent (Hot/Warm/Cold), and extracting client budgets, timelines, and finance approvals in under 60 seconds.
 
-- Answers inbound call scenarios.
-- Calls new form enquiries within 60 seconds.
-- Sends email/WhatsApp fallback when the lead misses the call.
-- Scores Hot/Warm/Cold intent.
-- Creates an agent-ready summary with budget, timeline, finance, interest, and next step.
+👉 **[Live Demo Deployment URL](https://jlambert-production.up.railway.app/app.html)**
 
-## Run Locally
+---
 
-```bash
-npm start
+## 🏗️ Voice Conversational & Intent Extraction Pipeline
+
+LeadPilot operates by dynamically loading unstructured markdown and PDF property brochures into the AI assistant's context. During a WebRTC call, the voice engine conducts real-time speech matching. On hang-up, the complete conversation is analyzed by the **Gemini API** using structured JSON schemas to classify lead intent.
+
+### Telemetry Conversational Architecture
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Buyer as Home Buyer (Browser Voice)
+    participant Vapi as Vapi WebRTC Gateway
+    participant Server as Node.js API Server
+    participant Gemini as Gemini 2.5 Flash
+    database DB as Supabase / JSON DB
+    
+    Buyer->>Vapi: Start Live Session (Speak via Mic)
+    Vapi->>Server: Request Catalog Data (/api/vapi-config)
+    Server-->>Vapi: catalog markdown/PDF content
+    Vapi-->>Buyer: Voice conversation (Property context matched)
+    Buyer->>Vapi: Hang up / End Session
+    Vapi->>Server: dispatch conversation transcript
+    Server->>Gemini: POST /api/extract-lead (Analyze transcript)
+    Gemini-->>Server: Inferred lead parameters (budget, timeline, finance)
+    Server->>Server: Score lead (Hot/Warm/Cold) & Next steps
+    Server->>DB: Insert enriched lead record
+    Server-->>Buyer: Update glassmorphic dashboard in real-time
 ```
 
-Then open:
+---
 
-```text
-http://127.0.0.1:4173/app.html
-```
+## ✨ Features Breakdown
 
-## 🚀 Deployment (Railway)
+- [x] **WebRTC Audio Concierge**: Instant in-browser microphone connection using Vapi SDK to converse with a real-time, low-latency luxury real estate agent.
+- [x] **Dynamic Context Synchronization**: Sync brand catalogs, description FAQs, or PDF property listings into the AI agent's brain dynamically.
+- [x] **Automatic Data Extraction & Scoring**: Harnesses **Gemini 2.5 Flash** to extract user budget, timelines, and finance approvals. Evaluates and scores lead temperature in real-time.
+- [x] **Scheduled Viewing Management**: Fully operational scheduler allowing real-time inspection booking.
+- [x] **Production Grade Analytics**: Visualizes cumulative efficiency minutes saved using Chart.js line charts.
 
-1. **Install CLI:** `npm i -g @railway/cli`
-2. **Login:** `railway login`
-3. **Up:** `railway up`
-4. **Environment Variables:** Set `GEMINI_API_KEY` in the Railway dashboard.
-5. **Persistence:** Add a **Volume** mounted at `/app/data` (if deploying from root) or `/voice_agent_files/data` to persist your leads.
+---
 
-## Free AI Brain Mode
+## 🚀 Running Locally & Environment Setup
 
-The voice UI can use Gemini's free-tier API for the conversation brain.
+### 1. Prerequisites
+- **Node.js** (v18.x or later)
+- **Google Gemini API Key** (from Google AI Studio)
 
-```bash
-GEMINI_API_KEY=your_google_ai_studio_key npm start
-```
+### 2. Quick Start
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Jawknee-builds/j-lambert-ai.git
+   cd j-lambert-ai
+   ```
+2. Install npm packages:
+   ```bash
+   npm install
+   ```
+3. Configure environment keys:
+   Rename `.env.example` to `.env` and configure your API credentials:
+   ```env
+   GEMINI_API_KEY=AIzaSy... (Your Google AI Studio Key)
+   PORT=4173
+   # Optional: Add Supabase URL and Key to persist data in PostgreSQL
+   SUPABASE_URL=https://your-project.supabase.co
+   SUPABASE_KEY=eyJhbGc...
+   ```
+4. Fire up the server:
+   ```bash
+   npm start
+   ```
+   Open `http://localhost:4173/app.html` in your browser.
 
-By default it uses:
+---
 
-```text
-gemini-2.5-flash-lite
-```
+## 🌩️ Production Deployment (Railway)
 
-You can change it:
+The codebase is fully optimized for continuous delivery on **Railway**:
 
-```bash
-GEMINI_MODEL=gemini-2.5-flash-lite GEMINI_API_KEY=your_key npm start
-```
+1. Create a new project on **Railway** and link your `j-lambert-ai` repository.
+2. In the Railway dashboard, navigate to **Settings** -> **Variables**, and configure:
+   - `GEMINI_API_KEY` = (Your AI Studio Key)
+   - `SUPABASE_URL` = (Optional)
+   - `SUPABASE_KEY` = (Optional)
+3. Deploy! Railway will automatically pull the branch, compile packages, and start serving on a secure HTTPS domain.
 
-Without `GEMINI_API_KEY`, the app falls back to the local rule-based voice brain.
-
-## Key Files
-
-- `index.html` - sales/demo landing page.
-- `app.html` - working MVP dashboard.
-- `server.js` - no-dependency Node API and static server.
-- `app.js` - dashboard behavior and API calls.
-- `data/leads.json` - local lead storage.
-- `outreach.md` - WhatsApp/email outreach scripts.
-
-## API Routes
-
-- `GET /api/leads`
-- `GET /api/metrics`
-- `POST /api/leads`
-- `POST /api/inbound-call`
-
-## Next Integrations
-
-- Fastest production voice: Retell or Vapi with a real phone number, webhooks, and transcripts.
-- Most custom production voice: OpenAI Realtime with SIP/WebRTC plus your own call controls.
-- Voice plumbing: Twilio or Telnyx for phone numbers if the voice platform does not handle the number directly.
-- Email: SendGrid, Resend, Postmark, or Gmail API.
-- WhatsApp: Meta WhatsApp Cloud API or Twilio WhatsApp.
-- CRM: HubSpot, Airtable, Google Sheets, Agentbox/Rex/VaultRE via Zapier/Make where direct APIs are not practical.
+---
+*Developed with 💜 by [Jawknee-builds](https://github.com/Jawknee-builds)*
