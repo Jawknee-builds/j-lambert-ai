@@ -10,7 +10,7 @@
 
 LeadPilot AI is an enterprise-grade autonomous voice concierge designed specifically for AU/NZ luxury real estate teams. Powered by **Vapi AI WebRTC audio channels** and **Gemini 2.5 Flash reasoning engines**, it acts as a digital front-desk, dynamically parsing and answering complex real estate brochure contexts, answering inbound buyer enquiries, scoring intent (Hot/Warm/Cold), and extracting client budgets, timelines, and finance approvals in under 60 seconds.
 
-👉 **[Live Demo Deployment URL](https://jlambert-production.up.railway.app/app.html)**
+👉 **[Live Demo Deployment URL](https://j-lambert-ai.vercel.app/app.html)**
 
 
 ---
@@ -88,22 +88,16 @@ sequenceDiagram
 
 ---
 
-## 🌩️ Production Deployment (Render & Railway)
+## 🌩️ Production Deployment (Vercel)
 
-The codebase is fully optimized for continuous serverless delivery:
+The codebase is fully optimized for 100% free, card-free, continuous serverless delivery:
 
-### 1. Render Deployment (100% Free, NO Credit Card Required 🌟)
-1. Click the **Deploy to Render** button above or log into the [Render Dashboard](https://dashboard.render.com).
-2. Choose **Web Service** and link your `j-lambert-ai` repository.
+### Vercel Deployment (100% Free, NO Credit Card Required 🌟)
+1. Deploy the repository to **Vercel**.
+2. Vercel automatically detects the modern `vercel.json` rewrites and function bundles.
 3. Configure the following variables in the environment settings:
-   - `GEMINI_API_KEY` = (Your AI Studio Key)
-4. Click **Deploy**. Render will automatically build your server and serve it live!
-
-### 2. Railway Deployment
-1. Create a new project on **Railway** and link your `j-lambert-ai` repository.
-2. In the Railway dashboard, navigate to **Settings** -> **Variables**, and configure:
-   - `GEMINI_API_KEY` = (Your AI Studio Key)
-3. Deploy! Railway will automatically pull the branch, compile packages, and start serving on a secure HTTPS domain.
+   - `GEMINI_API_KEY` = (Your Google AI Studio Key)
+4. Click **Deploy**. Vercel will build the Express serverless endpoints and host the static dashboard files live under a secure, premium HTTPS domain!
 
 ---
 *Developed with 💜 by [Jawknee-builds](https://github.com/Jawknee-builds)*

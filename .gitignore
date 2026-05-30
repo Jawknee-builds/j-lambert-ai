@@ -4,3 +4,4 @@ node_modules
 # Keep local data out of git if deploying clean
 # data/leads.json
 # data/brochures/*
+.vercel

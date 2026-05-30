@@ -23,8 +23,8 @@ if (SUPABASE_URL && SUPABASE_KEY) {
 }
 
 // Root-level data directory for hosting stability
-const ROOT = __dirname;
 const isVercel = !!process.env.VERCEL;
+const ROOT = isVercel ? path.join(__dirname, "..") : __dirname;
 const DATA_DIR = isVercel ? "/tmp/data" : path.join(ROOT, "data");
 const DB_PATH = path.join(DATA_DIR, "leads.json");
 const BROCHURES_DIR = path.join(ROOT, "brochures");
