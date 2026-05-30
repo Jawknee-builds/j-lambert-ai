@@ -5,7 +5,7 @@
 [![Gemini](https://img.shields.io/badge/Model-Gemini%202.5%20Flash-blue.svg)](#)
 [![Voice SDK](https://img.shields.io/badge/Voice%20SDK-Vapi%20AI-00A884.svg)](#)
 [![Supabase](https://img.shields.io/badge/Database-Supabase-3ECF8E.svg)](#)
-[![Deploy to Koyeb](https://www.koyeb.com/static/images/deploy/button.svg)](https://app.koyeb.com/deploy?repository=github.com/Jawknee-builds/j-lambert-ai&branch=main&name=j-lambert-ai)
+[![Deploy to Render](https://render.com/images/deploy-to-render.svg)](https://render.com/deploy?repo=https://github.com/Jawknee-builds/j-lambert-ai)
 [![Deploy to Railway](https://railway.app/button.svg)](https://railway.app/new/template?template=https://github.com/Jawknee-builds/j-lambert-ai)
 
 LeadPilot AI is an enterprise-grade autonomous voice concierge designed specifically for AU/NZ luxury real estate teams. Powered by **Vapi AI WebRTC audio channels** and **Gemini 2.5 Flash reasoning engines**, it acts as a digital front-desk, dynamically parsing and answering complex real estate brochure contexts, answering inbound buyer enquiries, scoring intent (Hot/Warm/Cold), and extracting client budgets, timelines, and finance approvals in under 60 seconds.
@@ -88,18 +88,16 @@ sequenceDiagram
 
 ---
 
-## 🌩️ Production Deployment (Koyeb & Railway)
+## 🌩️ Production Deployment (Render & Railway)
 
 The codebase is fully optimized for continuous serverless delivery:
 
-### 1. Koyeb Deployment (Recommended - Free Forever with 0 sleep time)
-1. Click the **Deploy to Koyeb** button above or log into the [Koyeb Dashboard](https://app.koyeb.com).
-2. Create a new Service and choose **GitHub** as the deployment method.
-3. Select the `j-lambert-ai` repository.
-4. Set the following environment variables in the variables manager:
+### 1. Render Deployment (100% Free, NO Credit Card Required 🌟)
+1. Click the **Deploy to Render** button above or log into the [Render Dashboard](https://dashboard.render.com).
+2. Choose **Web Service** and link your `j-lambert-ai` repository.
+3. Configure the following variables in the environment settings:
    - `GEMINI_API_KEY` = (Your AI Studio Key)
-   - `PORT` = `8000` (or leave default)
-5. Click **Deploy**. Koyeb will compile and serve the Node server permanently online with zero sleep limits.
+4. Click **Deploy**. Render will automatically build your server and serve it live!
 
 ### 2. Railway Deployment
 1. Create a new project on **Railway** and link your `j-lambert-ai` repository.
